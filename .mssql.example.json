@@ -1,0 +1,9 @@
+{
+  "user": "---",
+  "password": "---",
+  "server": "---",
+  "database": "master",
+  "options": {
+    "encrypt": false
+  }
+}
