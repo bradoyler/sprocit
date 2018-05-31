@@ -1,20 +1,22 @@
-const sql = require('mssql')
-const config = require('./.mssql.json')
+const Sprockit = require('../index')
+const config = require('../.mssql.json')
 
-let mypool
+const sprockit = new Sprockit(config)
 
-sql.connect(config)
-  .then(pool => {
-    mypool = pool
-    return pool.request()
-      .input('id', sql.Int, 2)
-      // .output('output_param', sql.VarChar(50))
-      .execute('getItems')
-  }).then(result => {
-    console.log(result.recordset, '<<< recordset')
-    // console.log(result.returnValue, '<<< returnValue')
-    mypool.close()
-  }).catch(err => {
-    console.log(err)
-    mypool.close()
+const params = [{name: 'id', type: 'Int', value: 1}]
+const params2 = [{name: 'id', type: 'Int', value: 2}]
+
+sprockit.exec('getItems', params)
+  .then(results => {
+    console.log('1st completed', results.recordset)
+    return sprockit.exec('getItems', params2)
   })
+  .then(results => {
+    console.log('2nd completed', results.recordset)
+    return sprockit.exec('getItems', params)
+  })
+  .then(results => {
+    console.log('3rd completed', results.recordset)
+    sprockit.close()
+  })
+  .catch(console.log)
