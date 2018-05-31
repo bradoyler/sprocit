@@ -14,6 +14,10 @@ class Sprocit {
     this.pool = null
   }
 
+  static create (config) {
+    return new Sprocit(config)
+  }
+
   exec (name, params) {
     if (this.pool) {
       return execWithPool(this.pool, name, params)
