@@ -8,7 +8,7 @@ function execWithPool (pool, name, params) {
   return req.execute(name)
 }
 
-class Sprockit {
+class Sprocit {
   constructor (config) {
     this.config = config
     this.pool = null
@@ -31,4 +31,4 @@ class Sprockit {
   }
 }
 
-module.exports = Sprockit
+module.exports = Sprocit
