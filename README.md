@@ -45,6 +45,7 @@ sp.connect(config)
 See [tests](test/index.js) for  advanced usage
 
 TODO:
+- support for queries
 - PostgreSQL support
 - mocha tests
 - examples
