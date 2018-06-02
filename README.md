@@ -31,10 +31,11 @@ const config = {
 ### Execute your Sproc
 
 ```js
-const sp = require('sprocit').create(config)
+const sp = require('sprocit').create()
 const params = [{name: 'id', type: 'Int', value: 1}]
 
-sp.connect()
+// just 'connect' then => 'execute'
+sp.connect(config)
   .then(exec => {
     exec('getItems', params)
       .then(console.log) // logs results
