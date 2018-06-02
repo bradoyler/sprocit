@@ -1,5 +1,5 @@
 ![log](https://user-images.githubusercontent.com/425966/40876689-9c5cf2f4-6647-11e8-8b79-85822a3d1221.png)
-<span style="font-size:2em;">Sproc it</span>
+<strong style="font-size:2em;">Sproc it</strong>
 <hr>
 
 ***Sproc it*** is a Promise-based API for executing SQL stored procedures _(for Nodejs)_
