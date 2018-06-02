@@ -1,6 +1,6 @@
 {
   "name": "sprocit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "call your sprocs from node",
   "main": "index.js",
   "scripts": {
