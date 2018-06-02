@@ -1,16 +1,18 @@
 const sql = require('mssql')
 
-function execWithPool (pool, name, params) {
-  const req = pool.request()
-  params.forEach(p => {
-    req.input(p.name, sql[p.type], p.value)
-  })
-  return req.execute(name)
+function requestMiddleware (pool) {
+  return (name, params) => {
+    const req = pool.request()
+    params.forEach(p => {
+      req.input(p.name, sql[p.type], p.value)
+    })
+    return req.execute(name)
+  }
 }
 
 class Sprocit {
   constructor (config) {
-    this.config = config
+    this.config = config // TODO: make password a private field
     this.pool = null
   }
 
@@ -18,16 +20,12 @@ class Sprocit {
     return new Sprocit(config)
   }
 
-  exec (name, params) {
-    if (this.pool) {
-      return execWithPool(this.pool, name, params)
-    } else {
-      return sql.connect(this.config)
-        .then(pool => {
-          this.pool = pool
-          return execWithPool(pool, name, params)
-        })
-    }
+  connect (config = this.config) {
+    return sql.connect(config)
+      .then(pool => {
+        this.pool = pool // needed to close connection
+        return requestMiddleware(pool)
+      })
   }
 
   close () {

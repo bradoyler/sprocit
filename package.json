@@ -1,10 +1,10 @@
 {
   "name": "sprocit",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "call your sprocs from node",
   "main": "index.js",
   "scripts": {
-    "test": "node test"
+    "test": "node test/simple && node test/index"
   },
   "repository": {
     "type": "git",
