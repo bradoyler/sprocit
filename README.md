@@ -28,8 +28,7 @@ const config = {
 }
 ```
 
-### Execute your Sproc
-
+### Execute a Stored procedure  
 ```js
 const sp = require('sprocit').create()
 const params = [{name: 'id', value: 1}]
@@ -38,6 +37,15 @@ const params = [{name: 'id', value: 1}]
 sp.connect(config)
   .then(db => {
     db.exec('getItem', params)
+      .then(console.log) // logs results
+  })
+```
+
+### Run a Query  
+```js
+sp.connect(config)
+  .then(db => {
+    db.query('select * from items')
       .then(console.log) // logs results
   })
 ```
