@@ -32,12 +32,12 @@ const config = {
 
 ```js
 const sp = require('sprocit').create()
-const params = [{name: 'id', type: 'Int', value: 1}]
+const params = [{name: 'id', value: 1}]
 
 // just 'connect' then => 'execute'
 sp.connect(config)
   .then(db => {
-    db.exec('getItems', params)
+    db.exec('getItem', params)
       .then(console.log) // logs results
   })
 ```

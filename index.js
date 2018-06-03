@@ -4,7 +4,11 @@ function requestThunk (pool) {
   function exec (name, params = []) {
     const req = pool.request()
     params.forEach(p => {
-      req.input(p.name, sql[p.type], p.value)
+      if (p.type) {
+        req.input(p.name, sql[p.type], p.value)
+      } else {
+        req.input(p.name, p.value)
+      }
     })
     return req.execute(name)
   }

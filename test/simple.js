@@ -1,11 +1,11 @@
 const config = require('../.mssql.json')
 const sp = require('../index').create()
 
-const params = [{name: 'id', type: 'Int', value: 2}]
+const params = [{name: 'name', value: 'test'}]
 
 sp.connect(config)
   .then(db => {
-    db.exec('getItems', params)
+    db.exec('findItems', params)
       .then(res => {
         console.log('\n|---- Simple test', res)
         sp.close()
@@ -15,3 +15,4 @@ sp.connect(config)
         sp.close()
       })
   })
+  .catch(console.error)
