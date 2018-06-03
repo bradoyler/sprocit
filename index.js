@@ -1,13 +1,23 @@
 const sql = require('mssql')
 
-function requestMiddleware (pool) {
-  return (name, params) => {
+function requestThunk (pool) {
+  function exec (name, params = []) {
     const req = pool.request()
     params.forEach(p => {
       req.input(p.name, sql[p.type], p.value)
     })
     return req.execute(name)
   }
+
+  function query (query, params = []) {
+    const req = pool.request()
+    params.forEach(p => {
+      req.input(p.name, sql[p.type], p.value)
+    })
+    return req.query(query)
+  }
+
+  return { exec, query }
 }
 
 class Sprocit {
@@ -24,7 +34,7 @@ class Sprocit {
     return sql.connect(config)
       .then(pool => {
         this.pool = pool // needed to close connection
-        return requestMiddleware(pool)
+        return requestThunk(pool)
       })
   }
 

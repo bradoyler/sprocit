@@ -36,8 +36,8 @@ const params = [{name: 'id', type: 'Int', value: 1}]
 
 // just 'connect' then => 'execute'
 sp.connect(config)
-  .then(exec => {
-    exec('getItems', params)
+  .then(db => {
+    db.exec('getItems', params)
       .then(console.log) // logs results
   })
 ```
@@ -45,7 +45,5 @@ sp.connect(config)
 See [tests](test/index.js) for  advanced usage
 
 TODO:
-- support for queries
+- Mocha tests with Chai assertions
 - PostgreSQL support
-- mocha tests
-- examples

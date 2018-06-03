@@ -1,13 +1,11 @@
 const config = require('../.mssql.json')
 const sp = require('../index').create()
 
-const params = [{name: 'id', type: 'Int', value: 2}]
-
 sp.connect(config)
   .then(db => {
-    db.exec('getItems', params)
+    db.query('select * from items')
       .then(res => {
-        console.log('\n|---- Simple test', res)
+        console.log('\n|---- Query test', res.recordset)
         sp.close()
       })
       .catch(err => {
