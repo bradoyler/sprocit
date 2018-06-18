@@ -35,15 +35,23 @@ class Sprocit {
   }
 
   connect (config = this.config) {
+    if (this.pool && this.pool._connected) {
+      return Promise.resolve(requestThunk(this.pool))
+    }
+
+    if (this.pool && !this.pool._connected) {
+      sql.close() // auto-close global connection
+    }
+
     return sql.connect(config)
       .then(pool => {
-        this.pool = pool // needed to close connection
+        this.pool = pool
         return requestThunk(pool)
       })
   }
 
   close () {
-    this.pool.close()
+    sql.close()
   }
 }
 

@@ -23,3 +23,21 @@ sp.connect()
       })
       .catch(console.error)
   })
+
+function delayTest () {
+  sp.connect()
+    .then(db => {
+      db.exec('findItems', params)
+        .then(res => {
+          console.log('\n|---- EXEC recordset: (delayed)', res.recordset)
+          sp.close()
+        })
+        .catch(console.error)
+    })
+}
+
+setTimeout(delayTest, 1200)
+setTimeout(delayTest, 1200 + 50)
+setTimeout(delayTest, 1200 + 100)
+setTimeout(delayTest, 1200 + 150)
+setTimeout(delayTest, 1200 + 200)
